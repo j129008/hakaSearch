@@ -46,6 +46,8 @@ $client = ClientBuilder::create()
 if(!empty($_POST)){
     if(isset($_POST['keyword'])){
         $params['body'] = array(
+            'from' => 0,
+            'size' => 1200,
             'query' => array(
                 'match' => array(
                     '_all' => array(
