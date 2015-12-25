@@ -8,11 +8,13 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </head>
     <body>
-        <form action="get.php" method="post">
+        <form action="get.php" class="form-inline" method="post">
+<div class="form-group">
         <label>
         IR搜尋
-        <input type="text" name="keyword">
+        <input type="text" class="form-control" name="keyword">
         </label>
+</div>
         <input type="submit" value="search">
         </form>
 <?php
