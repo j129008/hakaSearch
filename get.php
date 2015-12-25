@@ -14,6 +14,7 @@ font-weight: bold;
 </style>
     </head>
     <body>
+<div class="container-fluid col-md-4 col-md-offset-1">
         <form action="get.php" class="form-inline" method="post">
         <div class="form-group">
             <label>
@@ -79,5 +80,6 @@ if(!empty($_POST)){
 }
 
 ?>
+</div>
     </body>
 </html>
