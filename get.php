@@ -10,6 +10,10 @@
 h3{
 color: blue;
 font-weight: bold;
+font-size: 18px;
+}
+h3:hover{
+text-decoration: underline;
 }
 body{
 padding-top: 15px;
