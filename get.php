@@ -6,13 +6,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script>
-            $(window).ready({
-                function(){
-                    $(".contain").hide();
-                }
-            });
-        </script>
     </head>
     <body>
 <?php
@@ -41,14 +34,31 @@ if(!empty($_POST)){
         );
         $results = $client->search($params);
         foreach($results['hits']['hits'] as $term){
-             print("<h3>".$term['_source']['t1']);
-             print(" ".$term['_source']['t2']."</h3>");
-             print('<div class="contain">');
-             print("<h4>作者: ".$term['_source']['author']."</h4>");
-             print($term['_source']['contain']);
-             print("</div>");
-             print("<br><br>");
+            print('<div class="all">');
+            print("<h3>".$term['_source']['t1']);
+            print(" ".$term['_source']['t2']."</h3>");
+            print('<div class="contain">');
+            print("<h4>作者: ".$term['_source']['author']."</h4>");
+            print($term['_source']['contain']);
+            print("<br><br>");
+            print("</div>");
+            print("</div>");
         }
+        print('
+        <script>
+        $(".all").click(
+            function(){
+                var $t = $(".contain", this);
+                if($t.is(\':visible\') == false){
+                    $(".contain",this).slideDown();
+                }else{
+                    $(".contain",this).slideUp();
+                }
+            }
+        );
+        </script>'
+        );
+        print('<script>$(".contain").hide();</script>');
     }
 }
 
