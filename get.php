@@ -53,13 +53,18 @@ if(!empty($_POST)){
             )
         );
         $results = $client->search($params);
+        $keyword = $_POST['keyword'];
         foreach($results['hits']['hits'] as $term){
+            $t1 = $term['_source']['t1'];
+            $t2 = $term['_source']['t2'];
+            $author = $term['_source']['author'];
+            $contain = $term['_source']['contain'];
             print('<div class="all">');
-            print("<h3>".$term['_source']['t1']);
-            print(" ".$term['_source']['t2']."</h3>");
+            print("<h3>".$t1);
+            print(" ".$t2."</h3>");
             print('<div class="contain">');
-            print("<h4>作者: ".$term['_source']['author']."</h4>");
-            print($term['_source']['contain']);
+            print("<h4>作者: ".$author."</h4>");
+            print($contain);
             print("<br><br>");
             print("</div>");
             print("</div>");
