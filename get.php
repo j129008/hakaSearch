@@ -18,11 +18,11 @@ font-weight: bold;
         <form action="get.php" class="form-inline" method="post">
         <div class="form-group">
             <label>
-            IR搜尋
+            IR 搜尋：
             <input type="text" class="form-control" name="keyword">
             </label>
         </div>
-        <input type="submit" class="btn btn-primary" value="search">
+        <input type="submit" class="btn btn-primary" value="SEARCH">
         </form>
 <?php
 require 'vendor/autoload.php';
