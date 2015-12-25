@@ -8,6 +8,13 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </head>
     <body>
+        <form action="get.php" method="post">
+        <label>
+        IR搜尋
+        <input type="text" name="keyword">
+        </label>
+        <input type="submit" value="search">
+        </form>
 <?php
 require 'vendor/autoload.php';
 use Elasticsearch\ClientBuilder;
@@ -27,7 +34,8 @@ if(!empty($_POST)){
             'query' => array(
                 'match' => array(
                     '_all' => array(
-                        'query' => $_POST['keyword']
+                        'query' => $_POST['keyword'],
+                        'type' => 'phrase'
                     )
                 )
             )
