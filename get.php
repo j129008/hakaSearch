@@ -1,4 +1,9 @@
-<meta charset="utf-8" />
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Search Result</title>
+    </head>
+    <body>
 <?php
 require 'vendor/autoload.php';
 use Elasticsearch\ClientBuilder;
@@ -37,3 +42,5 @@ if(!empty($_POST)){
 }
 
 ?>
+    </body>
+</html>
