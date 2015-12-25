@@ -24,7 +24,15 @@ if(!empty($_POST)){
             )
         );
         $results = $client->search($params);
-        print_r($results);
+        foreach($results['hits']['hits'] as $term){
+             print($term['_source']['t1']);
+             print(" ".$term['_source']['t2']);
+             print("<br>");
+             print("作者: ".$term['_source']['author']);
+             print("<br>");
+             print($term['_source']['contain']);
+             print("<br><br>");
+        }
     }
 }
 
