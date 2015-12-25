@@ -14,10 +14,13 @@ font-weight: bold;
 body{
 padding-top: 15px;
 }
+strong{
+color: red;
+}
 </style>
     </head>
     <body>
-<div class="container-fluid col-md-4 col-md-offset-1">
+<div class="container-fluid col-md-8 col-md-offset-1">
         <form action="get.php" class="form-inline" method="post">
         <div class="form-group">
             <label>
@@ -59,6 +62,11 @@ if(!empty($_POST)){
             $t2 = $term['_source']['t2'];
             $author = $term['_source']['author'];
             $contain = $term['_source']['contain'];
+
+            $t1 = str_replace($keyword, '<strong>'.$keyword.'</strong>', $t1);
+            $t2 = str_replace($keyword, '<strong>'.$keyword.'</strong>', $t2);
+            $author = str_replace($keyword, '<strong>'.$keyword.'</strong>', $author);
+            $contain = str_replace($keyword, '<strong>'.$keyword.'</strong>', $contain);
             print('<div class="all">');
             print("<h3>".$t1);
             print(" ".$t2."</h3>");
