@@ -74,6 +74,13 @@ if(!empty($_POST)){
             $t2 = str_replace($keyword, '<strong>'.$keyword.'</strong>', $t2);
             $author = str_replace($keyword, '<strong>'.$keyword.'</strong>', $author);
             $contain = str_replace($keyword, '<strong>'.$keyword.'</strong>', $contain);
+            $snippet = "";
+            foreach(explode("。", $contain) as $sentence){
+                if( strpos($sentence, $keyword) != false ){
+                    $snippet = $snippet.$sentence."<br>";
+                }
+            }
+
             print('<div class="all">');
             print("<h3>".$t1);
             if(strlen($t2)>0){
@@ -81,7 +88,7 @@ if(!empty($_POST)){
             }
             print("</h3>");
             print('<div class="snippet">');
-            print('snippet');
+            print($snippet);
             print('</div>');
             print('<div class="contain">');
             print("<h4>作者: ".$author."</h4>");
