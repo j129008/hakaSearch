@@ -120,7 +120,6 @@ if(!empty($_POST)){
                 array_push($keywordList, $token);
             }
         }
-        print_r($params);
 
         $results = $client->search($params);
 
