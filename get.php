@@ -154,10 +154,9 @@ if(!empty($_POST)){
                 $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
                 $author = str_replace($key, '<strong>'.$key.'</strong>', $author);
                 $contain = str_replace($key, '<strong>'.$key.'</strong>', $contain);
-                $snippet = "";
                 foreach(explode("。", $contain) as $sentence){
                     if( strpos($sentence, $key) != false ){
-                        $snippet = $snippet.$sentence."<br>";
+                        $snippet = $snippet.$sentence."。";
                     }
                 }
             }
