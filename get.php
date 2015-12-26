@@ -35,18 +35,6 @@ color: red;
                     <input type="submit" class="btn btn-primary" value="SEARCH">
                 </div>
             </div>
-            <div style="padding-top: 5px" class="form-inline">
-                關係：
-                <label class="radio-inline">
-                  <input type="radio" name="operator" value="and" checked> And
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="operator" value="or"> Or
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="operator" value="not"> Not
-                </label>
-            </div>
         </form>
 <hr class="divider">
 <?php
@@ -68,21 +56,46 @@ if(!empty($_POST)){
             'from' => 0,
             'size' => 1200,
             'query' => array(
-                'match' => array(
-                    '_all' => array(
-                        'query' => $_POST['keyword'],
-                        'type' => 'phrase',
-                        'operator' => $_POST['operator']
-                    )
+                'bool' => array(
+                    'must' => array()
                 )
             )
         );
-        $results = $client->search($params);
         $keyword = $_POST['keyword'];
         $keywordList = array();
+
         foreach(explode(" ", $keyword) as $token){
-            array_push($keywordList, $token);
+            $flag = "key";
+            if(strcmp($token, "and") == 0){
+                $flag = "and";
+            }else if(strcmp($flag, "and") == 0){
+                $and = array(
+                        'match' => array(
+                            '_all' => array(
+                                'query' => $token,
+                                'type' => 'phrase'
+                            )
+                        )
+                    );
+                array_push($params['body']['query']['bool']['must'],$and);
+                array_push($keywordList, $token);
+            }else if(strcmp($flag, "key") == 0){
+                $and = array(
+                        'match' => array(
+                            '_all' => array(
+                                'query' => $token,
+                                'type' => 'phrase'
+                            )
+                        )
+                    );
+                array_push($params['body']['query']['bool']['must'],$and);
+                array_push($keywordList, $token);
+            }
         }
+        print_r($params);
+
+        $results = $client->search($params);
+
         $hits = $results['hits']['total'];
         print '<div style="color: gray">搜尋 "'.$keyword.'" 總共有 '.$hits.' 項結果</div><br>';
         foreach($results['hits']['hits'] as $term){
@@ -92,6 +105,7 @@ if(!empty($_POST)){
             $author = $term['_source']['author'];
             $contain = $term['_source']['contain'];
 
+            $snippet = "";
             foreach($keywordList as $key){
                 $t1 = str_replace($key, '<strong>'.$key.'</strong>', $t1);
                 $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
