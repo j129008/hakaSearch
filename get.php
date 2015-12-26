@@ -75,7 +75,10 @@ if(!empty($_POST)){
             $contain = str_replace($keyword, '<strong>'.$keyword.'</strong>', $contain);
             print('<div class="all">');
             print("<h3>".$t1);
-            print(" ".$t2."</h3>");
+            if(strlen($t2)>0){
+                print(" - ".$t2);
+            }
+            print("</h3>");
             print('<div class="contain">');
             print("<h4>作者: ".$author."</h4>");
             print($contain);
