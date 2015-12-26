@@ -31,9 +31,10 @@ color: red;
             IR 搜尋：
             <input type="text" class="form-control" name="keyword">
             </label>
+            <input type="submit" class="btn btn-primary" value="SEARCH">
         </div>
-        <input type="submit" class="btn btn-primary" value="SEARCH">
         </form>
+<hr class="divider">
 <?php
 require 'vendor/autoload.php';
 use Elasticsearch\ClientBuilder;
