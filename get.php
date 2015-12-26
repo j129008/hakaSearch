@@ -80,6 +80,9 @@ if(!empty($_POST)){
                 print(" - ".$t2);
             }
             print("</h3>");
+            print('<div class="snippet">');
+            print('snippet');
+            print('</div>');
             print('<div class="contain">');
             print("<h4>作者: ".$author."</h4>");
             print($contain);
@@ -95,8 +98,10 @@ if(!empty($_POST)){
                 $("h3", this).css("color","609");
                 if($t.is(\':visible\') == false){
                     $(".contain",this).slideDown();
+                    $(".snippet",this).slideUp();
                 }else{
                     $(".contain",this).slideUp();
+                    $(".snippet",this).slideDown();
                 }
             }
         );
