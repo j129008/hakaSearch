@@ -37,13 +37,13 @@ color: red;
             <div style="padding-top: 5px" class="form-inline">
                 關係：
                 <label class="radio-inline">
-                  <input type="radio" name="operator" id="inlineRadio1" value="option1"> And
+                  <input type="radio" name="operator" value="and" checked> And
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="operator" id="inlineRadio2" value="option2"> Or
+                  <input type="radio" name="operator" value="or"> Or
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="operator" id="inlineRadio3" value="option3"> Not
+                  <input type="radio" name="operator" value="not"> Not
                 </label>
             </div>
         </form>
@@ -77,6 +77,7 @@ if(!empty($_POST)){
         );
         $results = $client->search($params);
         $keyword = $_POST['keyword'];
+        print_r($_POST['operator']);
         $keywordList = array();
         foreach(explode(" ", $keyword) as $token){
             array_push($keywordList, $token);
