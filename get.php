@@ -88,6 +88,7 @@ if(!empty($_POST)){
         $(".all").click(
             function(){
                 var $t = $(".contain", this);
+                $("h3", this).css("color","609");
                 if($t.is(\':visible\') == false){
                     $(".contain",this).slideDown();
                 }else{
