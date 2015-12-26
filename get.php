@@ -57,7 +57,8 @@ if(!empty($_POST)){
             'size' => 1200,
             'query' => array(
                 'bool' => array(
-                    'must' => array()
+                    'must' => array(),
+                    'should' => array()
                 )
             )
         );
@@ -68,6 +69,8 @@ if(!empty($_POST)){
             $flag = "key";
             if(strcmp($token, "and") == 0){
                 $flag = "and";
+            }else if(strcmp($token, "or") == 0){
+                $flag = "or";
             }else if(strcmp($flag, "and") == 0){
                 $and = array(
                         'match' => array(
@@ -89,6 +92,17 @@ if(!empty($_POST)){
                         )
                     );
                 array_push($params['body']['query']['bool']['must'],$and);
+                array_push($keywordList, $token);
+            }else if(strcmp($flag, "or") == 0){
+                $or = array(
+                        'match' => array(
+                            '_all' => array(
+                                'query' => $token,
+                                'type' => 'phrase'
+                            )
+                        )
+                    );
+                array_push($params['body']['query']['bool']['should'],$or);
                 array_push($keywordList, $token);
             }
         }
