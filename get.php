@@ -64,6 +64,10 @@ if(!empty($_POST)){
         );
         $results = $client->search($params);
         $keyword = $_POST['keyword'];
+        $keywordList = array();
+        foreach(explode(" ", $keyword) as $token){
+            array_push($keywordList, $token);
+        }
         $hits = $results['hits']['total'];
         print '<div style="color: gray">搜尋 "'.$keyword.'" 有 '.$hits.' 項結果</div><br>';
         foreach($results['hits']['hits'] as $term){
@@ -72,14 +76,16 @@ if(!empty($_POST)){
             $author = $term['_source']['author'];
             $contain = $term['_source']['contain'];
 
-            $t1 = str_replace($keyword, '<strong>'.$keyword.'</strong>', $t1);
-            $t2 = str_replace($keyword, '<strong>'.$keyword.'</strong>', $t2);
-            $author = str_replace($keyword, '<strong>'.$keyword.'</strong>', $author);
-            $contain = str_replace($keyword, '<strong>'.$keyword.'</strong>', $contain);
-            $snippet = "";
-            foreach(explode("。", $contain) as $sentence){
-                if( strpos($sentence, $keyword) != false ){
-                    $snippet = $snippet.$sentence."<br>";
+            foreach($keywordList as $key){
+                $t1 = str_replace($key, '<strong>'.$key.'</strong>', $t1);
+                $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
+                $author = str_replace($key, '<strong>'.$key.'</strong>', $author);
+                $contain = str_replace($key, '<strong>'.$key.'</strong>', $contain);
+                $snippet = "";
+                foreach(explode("。", $contain) as $sentence){
+                    if( strpos($sentence, $key) != false ){
+                        $snippet = $snippet.$sentence."<br>";
+                    }
                 }
             }
 
