@@ -85,6 +85,7 @@ if(!empty($_POST)){
         $hits = $results['hits']['total'];
         print '<div style="color: gray">搜尋 "'.$keyword.'" 總共有 '.$hits.' 項結果</div><br>';
         foreach($results['hits']['hits'] as $term){
+            $txt = $term['_source']['file'];
             $t1 = $term['_source']['t1'];
             $t2 = $term['_source']['t2'];
             $author = $term['_source']['author'];
@@ -109,6 +110,7 @@ if(!empty($_POST)){
                 print(" - ".$t2);
             }
             print("</h3>");
+            print($txt);
             print('<div class="snippet">');
             print($snippet);
             print('</div>');
