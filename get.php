@@ -11,6 +11,7 @@ h3{
 color: blue;
 font-weight: bold;
 font-size: 18px;
+margin-bottom: 0px;
 }
 h3:hover{
 text-decoration: underline;
@@ -110,7 +111,7 @@ if(!empty($_POST)){
                 print(" - ".$t2);
             }
             print("</h3>");
-            print($txt);
+            print('<div style="color:006621">'.$txt.'</div>');
             print('<div class="snippet">');
             print($snippet);
             print('</div>');
