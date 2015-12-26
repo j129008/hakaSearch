@@ -25,7 +25,7 @@ color: red;
 </style>
     </head>
     <body>
-<div class="container-fluid col-md-8 col-md-offset-1">
+<div style="padding-bottom: 100px" class="container-fluid col-md-8 col-md-offset-1">
         <form action="get.php"  method="post">
             <div class="form-inline">
                 <div class="form-group">
