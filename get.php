@@ -70,14 +70,14 @@ if(!empty($_POST)){
                 'match' => array(
                     '_all' => array(
                         'query' => $_POST['keyword'],
-                        'type' => 'phrase'
+                        'type' => 'phrase',
+                        'operator' => $_POST['operator']
                     )
                 )
             )
         );
         $results = $client->search($params);
         $keyword = $_POST['keyword'];
-        print_r($_POST['operator']);
         $keywordList = array();
         foreach(explode(" ", $keyword) as $token){
             array_push($keywordList, $token);
