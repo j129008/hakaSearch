@@ -117,7 +117,6 @@ if(!empty($_POST)){
                         )
                     );
                 array_push($params['body']['query']['bool']['must_not'],$not);
-                array_push($keywordList, $token);
             }
         }
 
