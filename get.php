@@ -65,7 +65,7 @@ if(!empty($_POST)){
         $results = $client->search($params);
         $keyword = $_POST['keyword'];
         $hits = $results['hits']['total'];
-        print '<div style="color: gray">確定有 '.$hits.' 項結果</div><br>';
+        print '<div style="color: gray">搜尋 "'.$keyword.'" 有 '.$hits.' 項結果</div><br>';
         foreach($results['hits']['hits'] as $term){
             $t1 = $term['_source']['t1'];
             $t2 = $term['_source']['t2'];
