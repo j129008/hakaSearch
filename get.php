@@ -25,14 +25,27 @@ color: red;
     </head>
     <body>
 <div class="container-fluid col-md-8 col-md-offset-1">
-        <form action="get.php" class="form-inline" method="post">
-        <div class="form-group">
-            <label>
-            IR 搜尋：
-            <input type="text" class="form-control" name="keyword">
-            </label>
-            <input type="submit" class="btn btn-primary" value="SEARCH">
-        </div>
+        <form action="get.php"  method="post">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>
+                    <input type="text" class="form-control" name="keyword">
+                    </label>
+                    <input type="submit" class="btn btn-primary" value="SEARCH">
+                </div>
+            </div>
+            <div style="padding-top: 5px" class="form-inline">
+                關係：
+                <label class="radio-inline">
+                  <input type="radio" name="operator" id="inlineRadio1" value="option1"> And
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="operator" id="inlineRadio2" value="option2"> Or
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="operator" id="inlineRadio3" value="option3"> Not
+                </label>
+            </div>
         </form>
 <hr class="divider">
 <?php
