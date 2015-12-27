@@ -55,8 +55,14 @@ if(!empty($_POST)){
         $keyword = $_POST['keyword'];
         $keywordList = array();
 
+        $keyword = strtolower($keyword);
+        $command = "./addParen ".'"'.$keyword.'"';
+        $keyword = exec($command);
+        $keyword = str_replace('  ', ' ', $keyword);
+
         $query = "";
         foreach(explode(" ", $keyword) as $token){
+            if(strlen($token) == 0){ continue; }
             $token = strtoupper($token);
             if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
                 $query = $query." ".$token;
@@ -65,6 +71,8 @@ if(!empty($_POST)){
             $query = $query.' "'.$token.'" ';
             array_push($keywordList, $token);
         }
+
+        $query = strtoupper($query);
 
         $params['body'] = array(
             'from' => 0,
@@ -80,7 +88,7 @@ if(!empty($_POST)){
         $results = $client->search($params);
 
         $hits = $results['hits']['total'];
-        print '<div style="color: gray">搜尋 "'.$keyword.'" 總共有 '.$hits.' 項結果</div><br>';
+        print '<div style="color: gray">搜尋 "'.$_POST['keyword'].'" 總共有 '.$hits.' 項結果</div><br>';
         foreach($results['hits']['hits'] as $term){
             $txt = $term['_source']['file'];
             $t1 = $term['_source']['t1'];
