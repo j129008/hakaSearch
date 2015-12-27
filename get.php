@@ -55,7 +55,13 @@ if(!empty($_POST)){
         $keyword = $_POST['keyword'];
         $keywordList = array();
 
+        $query = "";
         foreach(explode(" ", $keyword) as $token){
+            if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) ){
+                $query = $query." ".$token;
+                continue;
+            }
+            $query = $query.' "'.$token.'" ';
             array_push($keywordList, $token);
         }
 
@@ -64,7 +70,7 @@ if(!empty($_POST)){
             'size' => 1200,
             'query' => array(
                 'query_string' => array(
-                    'query' => $keyword
+                    'query' => $query
                 )
             )
         );
