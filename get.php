@@ -55,6 +55,10 @@ if(!empty($_POST)){
         $keyword = $_POST['keyword'];
         $keywordList = array();
 
+        foreach(explode(" ", $keyword) as $token){
+            array_push($keywordList, $token);
+        }
+
         $params['body'] = array(
             'from' => 0,
             'size' => 1200,
@@ -65,9 +69,6 @@ if(!empty($_POST)){
             )
         );
 
-        foreach(explode(" ", $keyword) as $token){
-            array_push($keywordList, $token);
-        }
 
         $results = $client->search($params);
 
@@ -82,6 +83,7 @@ if(!empty($_POST)){
 
             $snippet = "";
             foreach($keywordList as $key){
+                $key = str_replace('"', '', $key);
                 $t1 = str_replace($key, '<strong>'.$key.'</strong>', $t1);
                 $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
                 $author = str_replace($key, '<strong>'.$key.'</strong>', $author);
