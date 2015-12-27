@@ -52,89 +52,21 @@ $client = ClientBuilder::create()
 
 if(!empty($_POST)){
     if(isset($_POST['keyword'])){
+        $keyword = $_POST['keyword'];
+        $keywordList = array();
+
         $params['body'] = array(
             'from' => 0,
             'size' => 1200,
             'query' => array(
-                'bool' => array(
-                    'must' => array(),
-                    'should' => array(),
-                    'must_not' => array()
+                'query_string' => array(
+                    'query' => $keyword
                 )
             )
         );
-        $keyword = $_POST['keyword'];
-        $keywordList = array();
 
-        $flag = "key";
-        $slop = "0";
-        $op = "";
-        $i = 0;
         foreach(explode(" ", $keyword) as $token){
-            if(strcmp($token, "and") == 0){
-                $flag = "and";
-            }else if(strcmp($token, "or") == 0){
-                $flag = "or";
-            }else if(strpos($token, "/") === 0){
-                $flag = "/";
-                $slop = substr($token, 1, strlen($token)-1);
-            }else if(strcmp($token, "not") == 0){
-                $flag = "not";
-            }else if(strcmp($flag, "and") == 0){
-                $and = array(
-                        'match' => array(
-                            '_all' => array(
-                                'query' => $token,
-                                'type' => 'phrase'
-                            )
-                        )
-                    );
-                array_push($params['body']['query']['bool']['must'],$and);
-                array_push($keywordList, $token);
-                $flag = "key";
-                $op = "must";
-            }else if(strcmp($flag, "key") == 0){
-                $and = array(
-                        'match' => array(
-                            '_all' => array(
-                                'query' => $token,
-                                'type' => 'phrase'
-                            )
-                        )
-                    );
-                array_push($params['body']['query']['bool']['must'],$and);
-                array_push($keywordList, $token);
-                $op = "must";
-            }else if(strcmp($flag, "or") == 0){
-                $or = array(
-                        'match' => array(
-                            '_all' => array(
-                                'query' => $token,
-                                'type' => 'phrase'
-                            )
-                        )
-                    );
-                array_push($params['body']['query']['bool']['should'],$or);
-                array_push($keywordList, $token);
-                $flag = "key";
-                $op = "should";
-            }else if(strcmp($flag, "not") == 0){
-                $not = array(
-                        'match' => array(
-                            '_all' => array(
-                                'query' => $token,
-                                'type' => 'phrase'
-                            )
-                        )
-                    );
-                array_push($params['body']['query']['bool']['must_not'],$not);
-                $flag = "key";
-                $op = "must_not";
-            }else if(strcmp($flag, "/") == 0){
-                array_push($keywordList, $token);
-                $flag = "key";
-            }
-            $i = $i + 1 ;
+            array_push($keywordList, $token);
         }
 
         $results = $client->search($params);
