@@ -57,6 +57,7 @@ if(!empty($_POST)){
 
         $query = "";
         foreach(explode(" ", $keyword) as $token){
+            $token = strtoupper($token);
             if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
                 $query = $query." ".$token;
                 continue;
