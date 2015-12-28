@@ -69,7 +69,7 @@ if(!empty($_POST)){
                     $query = $query." ".$token;
                     continue;
                 }
-                $query = $query.' "'.$token.'" ';
+                $query = $query.' '.$token.' ';
                 array_push($keywordList, $token);
             }
         }else{
@@ -94,7 +94,8 @@ if(!empty($_POST)){
             'size' => 1200,
             'query' => array(
                 'query_string' => array(
-                    'query' => $query
+                    'query' => $query,
+                    'auto_generate_phrase_queries' => true
                 )
             )
         );
