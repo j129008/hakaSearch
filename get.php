@@ -122,6 +122,7 @@ if(!empty($_POST)){
                     if( strpos($sentence, $key) != false ){
                         $snippet = $snippet.$sentence."。";
                     }
+                    if(strlen($snippet) > 30){ break; }
                 }
             }
 
