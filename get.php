@@ -77,6 +77,8 @@ if(!empty($_POST)){
                 if(strlen($token) == 0){ continue; }
                 $token = strtoupper($token);
                 $token = str_replace('"', '', $token);
+                $token = str_replace('~', '', $token);
+                $token = preg_replace('/(\d+)/i', '', $token);
                 if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
                     continue;
                 }
