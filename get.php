@@ -57,19 +57,32 @@ if(!empty($_POST)){
 
         $keyword = strtolower($keyword);
         $command = "./addParen ".'"'.$keyword.'"';
-        $keyword = exec($command);
         $keyword = str_replace('  ', ' ', $keyword);
 
         $query = "";
-        foreach(explode(" ", $keyword) as $token){
-            if(strlen($token) == 0){ continue; }
-            $token = strtoupper($token);
-            if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
-                $query = $query." ".$token;
-                continue;
+        if(strpos($keyword, '"') === false){
+            $keyword = exec($command);
+            foreach(explode(" ", $keyword) as $token){
+                if(strlen($token) == 0){ continue; }
+                $token = strtoupper($token);
+                if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
+                    $query = $query." ".$token;
+                    continue;
+                }
+                $query = $query.' "'.$token.'" ';
+                array_push($keywordList, $token);
             }
-            $query = $query.' "'.$token.'" ';
-            array_push($keywordList, $token);
+        }else{
+            foreach(explode(" ", $keyword) as $token){
+                if(strlen($token) == 0){ continue; }
+                $token = strtoupper($token);
+                $token = str_replace('"', '', $token);
+                if( (strcmp($token, "AND") == 0 ) or ( strcmp($token, "OR") == 0 ) or ( strcmp( $token, "NOT" ) == 0 ) or ( strcmp( $token, ")" ) == 0 ) or ( strcmp( $token, "(" ) == 0 )){
+                    continue;
+                }
+                array_push($keywordList, $token);
+            }
+            $query = $_POST['keyword'];
         }
 
         $query = strtoupper($query);
