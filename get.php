@@ -62,7 +62,11 @@ if(!empty($_POST)){
 
         $query = "";
         if(strpos($keyword, '"') === false){
-            $keyword = exec($command);
+            if(strpos($keyword, "and") === false ){
+
+            }else{
+                $keyword = exec($command);
+            }
             foreach(explode(" ", $keyword) as $token){
                 if(strlen($token) == 0){ continue; }
                 $token = strtoupper($token);
