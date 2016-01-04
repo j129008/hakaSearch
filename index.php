@@ -16,13 +16,15 @@ padding-top: 3%;
     <body>
         <div style="margin:0 auto; width:500px; text-align:center">
             <form method="post" action="http://newyork.cs.nccu.edu.tw:5566/ir/get.php">
-            <div class="form-inline">
                   <img src="HAKKA2.png" width="375" height="269">
-                <label>
-                    <input name="keyword" class="form-control" type="text">
-               <input type="submit" class="btn btn-primary" name="SEARCH" id="SEARCH" value="SUBMIT" />
-                </label>
-            </div>
+                    <div class="row">
+                        <div class="input-group">
+                          <input type="text" name="keyword" class="form-control" placeholder="Search for...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Go!</button>
+                          </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.row -->
             </form>
         </div>
     </body>
