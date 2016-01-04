@@ -93,7 +93,7 @@ if(!empty($_POST)){
         }
 
         $query = strtoupper($query);
-
+        $params['index'] = 'ir2';
         $params['body'] = array(
             'from' => 0,
             'size' => 1200,
