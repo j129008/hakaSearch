@@ -19,9 +19,6 @@ text-decoration: underline;
 body{
 padding-top: 15px;
 }
-strong{
-color: red;
-}
 em{
  color:red;
  font-style: normal;
@@ -127,10 +124,10 @@ if(!empty($_POST)){
             $snippet = $term['highlight']['contain'][0].' ...';
             foreach($keywordList as $key){
                 $key = str_replace('"', '', $key);
-                $t1 = str_replace($key, '<strong>'.$key.'</strong>', $t1);
-                $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
-                $author = str_replace($key, '<strong>'.$key.'</strong>', $author);
-                $contain = str_replace($key, '<strong>'.$key.'</strong>', $contain);
+                $t1 = str_replace($key, '<em>'.$key.'</em>', $t1);
+                $t2 = str_replace($key, '<em>'.$key.'</em>', $t2);
+                $author = str_replace($key, '<em>'.$key.'</em>', $author);
+                $contain = str_replace($key, '<em>'.$key.'</em>', $contain);
             }
 
             print('<div class="all">');
