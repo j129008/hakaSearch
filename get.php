@@ -22,6 +22,10 @@ padding-top: 15px;
 strong{
 color: red;
 }
+em{
+ color:red;
+ font-style: normal;
+}
 </style>
     </head>
     <body>
@@ -97,6 +101,15 @@ if(!empty($_POST)){
                     'query' => $query,
                     'auto_generate_phrase_queries' => true
                 )
+            ),
+            'highlight' => array(
+                'fields' => array(
+                    'contain' => array(
+                        'fragment_size' => 102,
+                        "number_of_fragments" => 1,
+                        'no_match_size' => 102
+                    )
+                )
             )
         );
 
@@ -111,20 +124,13 @@ if(!empty($_POST)){
             $t2 = $term['_source']['t2'];
             $author = $term['_source']['author'];
             $contain = $term['_source']['contain'];
-
-            $snippet = "";
+            $snippet = $term['highlight']['contain'][0].' ...';
             foreach($keywordList as $key){
                 $key = str_replace('"', '', $key);
                 $t1 = str_replace($key, '<strong>'.$key.'</strong>', $t1);
                 $t2 = str_replace($key, '<strong>'.$key.'</strong>', $t2);
                 $author = str_replace($key, '<strong>'.$key.'</strong>', $author);
                 $contain = str_replace($key, '<strong>'.$key.'</strong>', $contain);
-                foreach(explode("。", $contain) as $sentence){
-                    if( strpos($sentence, $key) != false ){
-                        $snippet = $snippet.$sentence."。";
-                    }
-                    if(strlen($snippet) > 30){ break; }
-                }
             }
 
             print('<div class="all">');
